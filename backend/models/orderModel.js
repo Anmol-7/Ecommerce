@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 const orderSchema=mongoose.Schema({
     user:{
@@ -21,11 +21,11 @@ const orderSchema=mongoose.Schema({
                 required: true
             },
             price:{
-                type:Number,
+                type:String,
                 required: true
             },
             product:{
-                type:Mongoose.Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: 'Product'
             }

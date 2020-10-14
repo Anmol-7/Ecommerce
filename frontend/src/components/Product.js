@@ -1,11 +1,12 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import Rating from "./Rating";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import NumberFormat from "react-number-format";
 
 const Product = ({ product }) => {
   return (
-    <Card className="my-3 p-3 rounded">
+    <Card className="my-3 p-3 rounded h-100 mb-3">
       <Link to={`/product/${product._id}`}>
         <Card.Img src={product.image} variant="top" />
       </Link>
@@ -21,7 +22,15 @@ const Product = ({ product }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as="h4">₹{product.price}</Card.Text>
+        <Card.Text as="h4">
+          <NumberFormat
+            thousandSeparator={true}
+            thousandsGroupStyle="lakh"
+            prefix={"₹"}
+            displayType={'text'}
+            value={product.price}
+          />
+        </Card.Text>
       </Card.Body>
     </Card>
   );
