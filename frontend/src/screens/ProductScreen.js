@@ -17,18 +17,18 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import NumberFormat from "react-number-format";
 
-const ProductScreen = ({ history,match }) => {
+const ProductScreen = ({ history, match }) => {
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, product, error } = productDetails;
-  
+
   useEffect(() => {
     dispatch(listProductDetail(match.params.id));
   }, [dispatch, match]);
-  const addToCartHandler=()=>{
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
-  }
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
   return (
     <>
       <Link to="/">
@@ -104,17 +104,22 @@ const ProductScreen = ({ history,match }) => {
                         <Form.Control
                           as="select"
                           value={qty}
+                          className="btn-sm"
                           onChange={(e) => setQty(e.target.value)}
                         >
-                          {product.countInStock>5?[...Array(5).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          )):[...Array(product.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
+                          {product.countInStock > 5
+                            ? [...Array(5).keys()].map((x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              ))
+                            : [...Array(product.countInStock).keys()].map(
+                                (x) => (
+                                  <option key={x + 1} value={x + 1}>
+                                    {x + 1}
+                                  </option>
+                                )
+                              )}
                         </Form.Control>
                       </Col>
                     </Row>

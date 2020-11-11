@@ -13,7 +13,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      idAdmin: user.isAdmin,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -38,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      idAdmin: user.isAdmin,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -57,7 +57,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      idAdmin: user.isAdmin,
+      isAdmin: user.isAdmin,
     });
   } else {
     res.status(404);
@@ -81,7 +81,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      idAdmin: updatedUser.isAdmin,
+      isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -98,4 +98,20 @@ const getUsers = asyncHandler(async (req, res) => {
   res.json(users)
 });
 
-export { authUser, getUserProfile ,registerUser,updateUserProfile,getUsers};
+
+//@description      DELETE a user
+//@route            DELETE /api/users/:id
+//@access           Private/Admin
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if(user){
+    await user.remove()
+    res.json({message:'User removed'})
+  }else{
+    res.status(404);
+    throw new Error('User not found')
+  }
+});
+
+
+export { authUser, getUserProfile ,registerUser,updateUserProfile,getUsers,deleteUser};

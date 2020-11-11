@@ -61,6 +61,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Form.Control
                       as="select"
                       value={item.qty}
+                      className="btn-sm"
                       onChange={(e) =>
                         dispatch(
                           addToCart(item.product, Number(e.target.value))
@@ -85,6 +86,7 @@ const CartScreen = ({ match, location, history }) => {
                       type="button"
                       variant="light"
                       onClick={() => removeFromCartHandler(item.product)}
+
                     >
                       <i className="fas fa-trash"></i>
                     </Button>
