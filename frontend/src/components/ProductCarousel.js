@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
 import { listTopProducts } from '../actions/productActions'
+import NumberFormat from 'react-number-format'
 
 const ProductCarousel = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,13 @@ const ProductCarousel = () => {
             <Image src={product.image} alt={product.name} fluid />
             <Carousel.Caption className='carousel-caption'>
               <h2>
-                {product.name} (Rs.{product.price})
+                {product.name} (<NumberFormat
+            thousandSeparator={true}
+            thousandsGroupStyle="lakh"
+            prefix={"₹"}
+            displayType={'text'}
+            value={product.price}
+          />)
               </h2>
             </Carousel.Caption>
           </Link>
